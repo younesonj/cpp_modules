@@ -1,8 +1,8 @@
-NAME := ./phonebook
+NAME := ./zombie
 CC := c++
 CFLAGS := -Wall -Wextra -Werror -std=c++98
 
-SRCS := contact.cpp phonebook.cpp main.cpp
+SRCS := Zombie.cpp main.cpp randomChump.cpp newZombie.cpp
 OBJS := $(SRCS:.cpp=.o)
 
 all: $(NAME)
