@@ -1,33 +1,32 @@
 #include "Form.hpp"
 #include "Bureaucrat.hpp"
 
-Form::Form() : name("default") , _signed(false) , to_sign(1) , to_exec(1)
-{
+Form::Form() : name("default"), is_signed(false), to_sign(1), to_exec(1)
+{}
 
-}
+Form::~Form()
+{}
 
-Form::Form(const std::string _name, const int _to_sign, const int _to_exec) : name(_name) , _signed(false) , to_sign(_to_sign) , to_exec(_to_exec)
+Form::Form(const std::string _name, int ts, int tex): name(_name), is_signed(false), to_sign(ts), to_exec(tex)
 {
-    if (to_sign < 1 || to_exec < 1)
+    if (ts < 1 || tex < 1)
         throw GradeTooHighException();
-    else if (to_sign > 150 || to_exec > 150)
+    else if (ts > 150 || tex > 150)
         throw GradeTooLowException();
 }
 
-Form::Form(const Form& other) : name(other.name) , _signed(other._signed) , to_sign(other.to_sign) , to_exec(other.to_exec)
-{
+Form::Form(const Form& f) : name(f.getName()), is_signed(f.isSigned()), to_sign(f.toSign()), to_exec(f.toExec())
+{}
 
-}
-
-Form& Form::operator=(const Form& other)
+Form &Form::operator=(const Form& f)
 {
-    _signed = other._signed;
+    if (this != &f)
+    {
+        is_signed = f.isSigned();
+        to_sign = f.toSign();
+        to_exec = f.toExec();
+    }
     return (*this);
-}
-
-Form::~Form()
-{
-
 }
 
 const std::string Form::getName() const
@@ -37,7 +36,7 @@ const std::string Form::getName() const
 
 bool Form::isSigned() const
 {
-    return (_signed);
+    return (is_signed);
 }
 
 int Form::toSign() const
@@ -53,15 +52,23 @@ int Form::toExec() const
 void Form::beSigned(Bureaucrat &b)
 {
     if (b.getGrade() <= to_sign)
-        _signed = true;
+        is_signed = true;
     else
-        throw (GradeTooLowException());
+        throw GradeTooLowException();
 }
 
-
-
-std::ostream &operator<<(std::ostream &out, const Form &f)
+const char *Form::GradeTooHighException::what() const throw()
 {
-    out << f.getName() << ", signed: " << f.isSigned() <<  ", required grade to => sign: " << f.toSign() << ", execute: " << f.toExec() << "." << std::endl;
-    return (out);
+    return "Grade too high!";
+}
+
+const char *Form::GradeTooLowException::what() const throw()
+{
+    return "Grade too low!";
+}
+
+std::ostream & operator << (std::ostream &out, const Form& f)
+{
+    out << f.getName() << ", signed: " << f.isSigned() << ", required grade to => sign: " << f.toSign() << ", execute: " << f.toExec() << ".";
+	return (out);
 }

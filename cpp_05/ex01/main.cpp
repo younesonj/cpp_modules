@@ -1,4 +1,5 @@
 #include "Bureaucrat.hpp"
+#include "Form.hpp"
 
 int main ()
 {
@@ -15,8 +16,4 @@ int main ()
 		Bureaucrat b("Mike", 1);
 		b.signForm(f);
 	}
-	return (0);
-
-
-
 }

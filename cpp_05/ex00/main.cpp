@@ -2,63 +2,28 @@
 
 int main ()
 {
-	std::string name("jhon");
-
 	{
-		try {
-			Bureaucrat b(name, 1);
-            std::cout << b << std::endl;
-            b.incrementGrade();
-            std::cout << b << std::endl;
-
+		try
+		{
+			Bureaucrat b("Younes", 0);
 		}
 		catch (Bureaucrat::GradeTooHighException& e)
 		{
 			std::cerr << e.what() << std::endl;
 		}
 	}
-
-	// {
-	// 	try {
-	// 		Bureaucrat b(name, 151);
-	// 	}
-	// 	catch (Bureaucrat::GradeTooLowException& e)
-	// 	{
-	// 		std::cerr << e.what() << std::endl;
-	// 	}
-	// }
-
-	// {
-	// 	Bureaucrat b(name, 1);
-	// 	try {
-	// 		b.incrementGrade();
-	// 	}
-	// 	catch (Bureaucrat::GradeTooHighException& e)
-	// 	{
-	// 		std::cerr << e.what() << std::endl;
-	// 	}
-	// }
-
-	// {
-	// 	Bureaucrat b(name, 150);
-	// 	try {
-	// 		b.decrementGrade();
-	// 	}
-	// 	catch (Bureaucrat::GradeTooLowException& e)
-	// 	{
-	// 		std::cerr << e.what() << std::endl;
-	// 	}
-	// }
-
-	// {
-	// 	try {
-	// 		Bureaucrat b(name, -199);
-	// 	}
-	// 	catch (std::exception& e)
-	// 	{
-	// 		std::cerr << e.what() << std::endl;
-	// 	}
-	// }
-
-
+	std::cout << std::endl; 
+	{
+		try
+		{
+			Bureaucrat a("Jhon", 150);
+			std::cout << a << std::endl;
+			a.increment();
+			std::cout << a << std::endl;
+		}
+		catch (Bureaucrat::GradeTooLowException &e)
+		{
+			std::cerr << e.what() << std::endl;
+		}
+	}
 }
