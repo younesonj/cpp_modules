@@ -4,7 +4,7 @@
 #include "ShrubberyCreationForm.hpp"
 #include "RobotomyRequestForm.hpp"
 #include "PresidentialPardonForm.hpp"
-#include <unistd.h>
+// #include <unistd.h>
 
 
 int main()
@@ -53,7 +53,6 @@ int main()
         for (int i = 1; i <= 3; i++) {
             std::cout << "Attempt " << i << ": ";
             roboteer.executeForm(robot);
-			sleep(1); // To change the seed for randomness
         }
         
     } catch (const std::exception& e) {
