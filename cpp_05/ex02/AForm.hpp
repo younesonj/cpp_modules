@@ -1,5 +1,5 @@
-#ifndef FORM_HPP
-#define FORM_HPP
+#ifndef AFORM_HPP
+#define AFORM_HPP
 
 #include <string>
 #include <iostream>
@@ -7,7 +7,7 @@
 
 class Bureaucrat;
 
-class Form {
+class AForm {
 private:
     std::string const	_name;
     bool				_signed;
@@ -17,11 +17,11 @@ private:
     
     public:
         //orthodox canonical form
-        Form();
-        Form(std::string const& name, int gradeToSign, int gradeToExecute);
-        Form(Form const& other);
-        Form& operator=(Form const& other);
-        ~Form();
+        AForm();
+        AForm(std::string const& name, int gradeToSign, int gradeToExecute);
+        AForm(AForm const& other);
+        AForm& operator=(AForm const& other);
+        virtual ~AForm();  // Virtual destructor for proper inheritance
 
         //getters
         std::string const&	getName() const;
@@ -31,6 +31,9 @@ private:
 
 
         void				beSigned(Bureaucrat const& b);
+        
+        // Pure virtual function - makes this class abstract
+        virtual void		execute(Bureaucrat const& executor) const = 0;
 
         // Exceptions
         class GradeTooHighException : public std::exception {
@@ -42,8 +45,13 @@ private:
             public:
                 const char* what() const throw();
         };
+        class FormNotSigned : public std::exception
+        {
+            public :
+                virtual const char *what() const throw();
+        };
 };
 
-std::ostream& operator<<(std::ostream& os, Form const& f);
+std::ostream& operator<<(std::ostream& os, AForm const& f);
 
-#endif // FORM_HPP
+#endif // AFORM_HPP

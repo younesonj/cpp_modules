@@ -1,7 +1,7 @@
 #include "Bureaucrat.hpp"
-#include "Form.hpp"
+#include "AForm.hpp"
 
-// orthodox canonical form
+// orthodox canonical Aform
 Bureaucrat::Bureaucrat() : name("Default"), grade(150) {}
 
 Bureaucrat::Bureaucrat(const std::string& name, int grade) : name(name) {
@@ -57,15 +57,29 @@ std::ostream& operator<<(std::ostream& os, const Bureaucrat& b) {
     return os;
 }
 
-void Bureaucrat::signForm(Form& form) const {
+void Bureaucrat::signForm(AForm& Aform) const {
     try
     {
-        form.beSigned(*this);
-        std::cout << name << " signed " << form.getName() << std::endl;
+        Aform.beSigned(*this);
+        std::cout << name << " signed " << Aform.getName() << std::endl;
     }
     catch (const std::exception& e)
     {
-        std::cout << name << " couldn't sign " << form.getName()
+        std::cout << name << " couldn't sign " << Aform.getName()
+                  << " because " << e.what() << std::endl;
+    }
+}
+
+void Bureaucrat::executeForm(AForm const &AForm) const
+{
+    try 
+    {
+        AForm.execute(*this);
+        std::cout << this->getName() << " executed " << AForm.getName() << std::endl;
+    } 
+    catch (std::exception &e)
+    {
+        std::cout << this->getName() << " couldn't execute " << AForm.getName()
                   << " because " << e.what() << std::endl;
     }
 }

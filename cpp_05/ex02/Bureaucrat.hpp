@@ -5,7 +5,7 @@
 #include <iostream>
 #include <exception>
 
-class Form; // forward declaration
+class AForm; // forward declaration
 
 class Bureaucrat {
 private:
@@ -39,7 +39,8 @@ public:
     };
 
 
-    void signForm(Form& form) const;
+    void signForm(AForm& form) const;      // Sign a form
+    void executeForm(AForm const& form) const;  // Execute a form
 };
 
 std::ostream& operator<<(std::ostream& os, const Bureaucrat& b);
