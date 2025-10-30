@@ -39,9 +39,9 @@ ShrubberyCreationForm::~ShrubberyCreationForm() {}
 void ShrubberyCreationForm::execute(Bureaucrat const& executor) const
 {
     if (!isSigned())
-        throw AForm::GradeTooLowException();
-    if (executor.getGrade() > getGradeToExecute())
         throw AForm::FormNotSigned();
+    if (executor.getGrade() > getGradeToExecute())
+        throw AForm::GradeTooLowException();
 
     std::string     filename = _target + "_shrubbery";
     std::ofstream   outFile(filename.c_str());
