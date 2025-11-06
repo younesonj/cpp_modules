@@ -10,7 +10,7 @@ int main (int ac, char **av)
         BitcoinExchange btc = BitcoinExchange();
         if (!btc.loadDatabase("data.csv"))
             throw std::runtime_error ("Error: failed to load database.");
-        
+        btc.processInputFile(av[1]);
     }
     catch(const std::exception& e)
     {
